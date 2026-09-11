@@ -1,18 +1,39 @@
 Class {
-	#name : 'MyPawnTests',
+	#name : 'MyPawnTest',
 	#superclass : 'TestCase',
 	#category : 'Myg-Chess-Tests',
 	#package : 'Myg-Chess-Tests'
 }
 
 { #category : 'tests' }
-MyPawnTests >> testId [
+MyPawnTest >> testDiagonalsEat [
+
+	| pawn squares board |
+	board := MyChessBoard empty.
+	board at: 'b5' put: (pawn := MyPawn white).
+
+	"Rooks don't jump above pieces"
+	"But they eat pieces of the other color"
+	"Let's put a black obstacle on g4, blocking the f rank"
+	board at: 'a6' put: MyPawn black.
+	board at: 'c6' put: MyPawn white.
+
+	squares := pawn targetSquares.
+	self
+		assertCollection: squares
+		includesAll:
+			(#( a6 ) collect: [ :name |
+				 board at: name ])
+]
+
+{ #category : 'tests' }
+MyPawnTest >> testId [
 
 	self assert: MyPawn new id equals: 'P'
 ]
 
 { #category : 'tests' }
-MyPawnTests >> testMovesWithOponentObstacle [
+MyPawnTest >> testMovesWithOponentObstacle [
 
 	| pawn squares board |
 	board := MyChessBoard empty.
@@ -32,7 +53,7 @@ MyPawnTests >> testMovesWithOponentObstacle [
 ]
 
 { #category : 'tests' }
-MyPawnTests >> testMovesWithSameColorObstacle [
+MyPawnTest >> testMovesWithSameColorObstacle [
 
 	| pawn squares board |
 	board := MyChessBoard empty.
