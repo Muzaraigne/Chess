@@ -128,3 +128,17 @@ MyPawnTest >> testMovesWithSameColorObstacle [
 			(#() collect: [ :name |
 				 board at: name ])
 ]
+
+{ #category : 'tests' }
+MyPawnTest >> testPromotion [
+	| pawn board promotedPiece |
+	board := MyChessBoard empty.
+	board initializePieces.
+	pawn := (board at: 'a2') contents.
+	self assert: pawn notNil.
+	board at: 'a8' put: pawn.
+	self assert: pawn isEligibleForPromotion.
+	pawn promoteTo: MyQueen.
+	promotedPiece := (board at: 'a8') contents.
+   self assert: promotedPiece class equals: MyQueen.
+]

@@ -2,7 +2,6 @@ Class {
 	#name : 'MyChessBoard',
 	#superclass : 'BlElement',
 	#instVars : [
-		'squareMatrix',
 		'grid',
 		'selected',
 		'state',

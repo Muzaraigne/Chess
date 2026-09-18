@@ -33,6 +33,16 @@ MyPawn >> forwardCaptures [
 		  s notNil and: [ s hasPiece and: [ s contents color ~= color ] ] ]
 ]
 
+{ #category : 'path commands' }
+MyPawn >> handlePromotion [
+    | choice |
+    choice := UIManager default 
+        chooseFrom: #('Reine' 'Tour' 'Fou' 'Cavalier') 
+        values: { MyQueen new . MyRook new  . MyBishop new . MyKnight new }
+        title: 'Choisissez la pièce pour la promotion :'.
+    self promoteTo: choice .
+]
+
 { #category : 'accessing' }
 MyPawn >> id [
 
@@ -45,10 +55,18 @@ super initialize .
 moving := false.
 ]
 
+{ #category : 'testing' }
+MyPawn >> isEligibleForPromotion [
+    ^ self isWhite 
+        ifTrue: [ square file = $8 ]
+        ifFalse: [ square file = $1 ]
+]
+
 { #category : 'path commands' }
 MyPawn >> moveTo: aSquare [
 super moveTo: aSquare.
 moving := true.
+self isEligibleForPromotion ifTrue: [ self handlePromotion ]
 ]
 
 { #category : 'accessing' }
@@ -61,6 +79,19 @@ MyPawn >> moving [
 MyPawn >> moving: anObject [
 
 	moving := anObject
+]
+
+{ #category : 'as yet unclassified' }
+MyPawn >> promoteTo: aPieceClass [
+| newPiece targetSquare |
+targetSquare := self square.
+newPiece := self isWhite 
+	ifTrue: [ aPieceClass  color: Color white ]
+	ifFalse: [ aPieceClass color: Color black].
+	targetSquare contents: newPiece.
+	newPiece square: targetSquare .
+
+
 ]
 
 { #category : 'rendering' }
