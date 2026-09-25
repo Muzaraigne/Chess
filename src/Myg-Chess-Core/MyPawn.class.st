@@ -8,6 +8,16 @@ Class {
 	#package : 'Myg-Chess-Core'
 }
 
+{ #category : 'constants' }
+MyPawn class >> black [ 
+	^ MyBlackPawn new.
+]
+
+{ #category : 'constants' }
+MyPawn class >> white [ 
+	^ MyWhitePawn new.
+]
+
 { #category : 'rendering' }
 MyPawn >> doubleMove [
 
