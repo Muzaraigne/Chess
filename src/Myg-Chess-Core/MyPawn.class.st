@@ -31,16 +31,7 @@ MyPawn >> doubleMove [
 { #category : 'as yet unclassified' }
 MyPawn >> forwardCaptures [
 
-	^ (self isWhite
-		   ifTrue: [
-				   {
-					   square up left.
-					   square up right } ]
-		   ifFalse: [
-				   {
-					   square down right.
-					   square down left } ]) select: [ :s |
-		  s notNil and: [ s hasPiece and: [ s contents color ~= color ] ] ]
+self subclassResponsibility 
 ]
 
 { #category : 'path commands' }
@@ -113,10 +104,5 @@ MyPawn >> renderPieceOn: aSquare [
 { #category : 'rendering' }
 MyPawn >> targetSquaresLegal: aBoolean [
 
-	^ (self moving 
-		ifTrue: [ (self isWhite
-		               ifTrue: [ { square up } ]
-		               ifFalse: [ { square down } ]) 
-							select: [ :s | s notNil and: [ s hasPiece not ] ] ]
-		ifFalse: [ self doubleMove]) , self forwardCaptures
+	self subclassResponsibility
 ]
