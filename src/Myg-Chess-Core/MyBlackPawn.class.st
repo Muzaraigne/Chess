@@ -20,7 +20,8 @@ MyBlackPawn >> initialize [
 
 { #category : 'rendering' }
 MyBlackPawn >> targetSquaresLegal: aBoolean [
-    | count |
+    | count target |
     count := self moving ifTrue: [ 1 ] ifFalse: [ 2 ].
-    ^ ((self downFileLegal: aBoolean) first: count) , self forwardCaptures
+	target := (self downFileLegal: aBoolean ) takeFirst: count.
+    ^( target select: [ :s | s hasPiece not ] ), self forwardCaptures
 ]
