@@ -20,7 +20,9 @@ MyWhitePawn >> initialize [
 
 { #category : 'rendering' }
 MyWhitePawn >> targetSquaresLegal: aBoolean [
-    | count |
+    | count targetLegal |
     count := self moving ifTrue: [ 1 ] ifFalse: [ 2 ].
-    ^ ((self upFileLegal: aBoolean) first: count) , self forwardCaptures
+    targetLegal := (self upFileLegal: aBoolean) takeFirst: count .
+    
+    ^ self forwardCaptures , (targetLegal do:[ :s | s hasPiece])
 ]
