@@ -138,7 +138,7 @@ MyPawnTest >> testPromotion [
 	self assert: pawn notNil.
 	board at: 'a8' put: pawn.
 	self assert: pawn isEligibleForPromotion.
-	pawn promoteTo: MyQueen.
+	pawn promoteTo: MyQueen new.
 	promotedPiece := (board at: 'a8') contents.
    self assert: promotedPiece class equals: MyQueen.
 ]
