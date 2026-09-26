@@ -49,6 +49,19 @@ MyChessGame class >> new [
 	self error: 'Please use one of the other constructors'
 ]
 
+{ #category : 'as yet unclassified' }
+MyChessGame class >> openGame [
+<script>
+| board space |
+board := self freshGame.
+board size: 800@600.
+space := BlSpace new.
+space root addChild: board.
+space pulse.
+space resizable: true.
+space show.
+]
+
 { #category : 'playing' }
 MyChessGame >> checkForMate [
 

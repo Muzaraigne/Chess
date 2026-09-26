@@ -56,10 +56,10 @@ MyPawnTest >> testFirstMovesWithOponentObstacle [
 
 	squares := pawn targetSquares.
 	self
-		assertCollection: squares
-		includesAll:
-			(#( a3 ) collect: [ :name |
-				 board at: name ])
+		assertCollection: squares 
+		hasSameElements: 
+		(#( a3 ) collect: [ :name |
+				 board at: name ]).
 ]
 
 { #category : 'tests' }
@@ -77,7 +77,7 @@ MyPawnTest >> testFirstMovesWithSameColorObstacle [
 	squares := pawn targetSquares.
 	self
 		assertCollection: squares
-		includesAll:
+		hasSameElements:
 			(#( a3 ) collect: [ :name |
 				 board at: name ])
 ]
@@ -104,7 +104,7 @@ MyPawnTest >> testMovesWithOponentObstacle [
 	squares := pawn targetSquares.
 	self
 		assertCollection: squares
-		includesAll:
+		hasSameElements:
 			(#() collect: [ :name |
 				 board at: name ])
 ]
@@ -124,7 +124,7 @@ MyPawnTest >> testMovesWithSameColorObstacle [
 	squares := pawn targetSquares.
 	self
 		assertCollection: squares
-		includesAll:
+		hasSameElements:
 			(#() collect: [ :name |
 				 board at: name ])
 ]
@@ -138,7 +138,7 @@ MyPawnTest >> testPromotion [
 	self assert: pawn notNil.
 	board at: 'a8' put: pawn.
 	self assert: pawn isEligibleForPromotion.
-	pawn promoteTo: MyQueen.
+	pawn promoteTo: MyQueen new.
 	promotedPiece := (board at: 'a8') contents.
    self assert: promotedPiece class equals: MyQueen.
 ]
