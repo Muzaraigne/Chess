@@ -65,8 +65,10 @@ MyPawn >> isEligibleForPromotion [
 
 { #category : 'path commands' }
 MyPawn >> moveTo: aSquare [
+| old |
+old := square name.
 super moveTo: aSquare.
-moving := true.
+moving := old ~= square name.
 self isEligibleForPromotion ifTrue: [ self handlePromotion ]
 ]
 
