@@ -43,7 +43,7 @@ MyPGNParser class >> forString: aString [
 { #category : 'parsing' }
 MyPGNParser class >> parse: aString [
 
-	^ (self forString: aString readStream) parse
+	^ (self forString: aString) parse
 ]
 
 { #category : 'as yet unclassified' }

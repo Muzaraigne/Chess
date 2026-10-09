@@ -26,7 +26,7 @@ MyFENParser class >> forString: aString [
 { #category : 'parsing' }
 MyFENParser class >> parse: aString [
 
-	^ (self forString: aString readStream) parse
+	^ (self forString: aString ) parse
 ]
 
 { #category : 'parsing' }

@@ -3,7 +3,6 @@ Class {
 	#superclass : 'BlElement',
 	#instVars : [
 		'grid',
-		'selected',
 		'state',
 		'whiteColor',
 		'blackColor',
@@ -133,31 +132,7 @@ MyChessBoard >> initializeFromFENBoard: aFENBoard [
 { #category : 'initialization' }
 MyChessBoard >> initializePieces [
 
-	| black |
-	black := false.
-	$a asciiValue to: $h asciiValue do: [ :column |
-		8 to: 1 by: -1 do: [ :file |
-			| squareNotation square |
-			squareNotation := column asCharacter asString , file asString.
-			square := black
-				          ifTrue: [
-					          black := false.
-					          MyChessSquare basicNew
-						          color: Color black;
-						          board: self;
-						          initialize;
-						          yourself ]
-				          ifFalse: [
-					          black := true.
-					          MyChessSquare basicNew
-						          color: Color white;
-						          board: self;
-						          initialize;
-						          yourself ].
-			square name: squareNotation.
-			grid at: squareNotation put: square.
-			self addChild: square ].
-		black := black not ].
+	grid ifNil: [  self initializeSquares ].
 
 	self at: 'a1' put: MyRook white.
 	self at: 'b1' put: MyKnight white.
@@ -222,29 +197,10 @@ MyChessBoard >> pieces [
 	^ children collect: [ :square | square contents ]
 ]
 
-{ #category : 'accessing' }
-MyChessBoard >> select: aSquare [ 
-	
-	state select: aSquare
-]
-
-{ #category : 'accessing' }
-MyChessBoard >> selected: aMyChessSquare [ 
-	
-	selected := aMyChessSquare
-]
-
 { #category : 'highlighting' }
 MyChessBoard >> unhighLightTargets: squares [
 
 	squares do: [ :sq | sq ifNotNil: #unhighlightTarget ]
-]
-
-{ #category : 'selection' }
-MyChessBoard >> unselectSelected [
-	
-	selected ifNil: [ ^ self ].
-	selected doUnselect
 ]
 
 { #category : 'accessing' }
