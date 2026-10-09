@@ -46,6 +46,11 @@ MyChessSquare >> + aPoint [
 ]
 
 { #category : 'accessing' }
+MyChessSquare >> atOffset: aPoint [
+	^self + aPoint 
+]
+
+{ #category : 'accessing' }
 MyChessSquare >> board [
 	^ board
 ]
